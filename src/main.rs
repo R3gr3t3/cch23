@@ -1,12 +1,11 @@
-use axum::{routing::get, Router};
+use axum::Router;
 
-async fn hello_world() -> &'static str {
-    "Hello, world!"
-}
+mod routes;
+mod handlers;
 
 #[shuttle_runtime::main]
 async fn main() -> shuttle_axum::ShuttleAxum {
-    let router = Router::new().route("/", get(hello_world));
+    let router = Router::new().merge(routes::day0::routes());
 
     Ok(router.into())
 }
